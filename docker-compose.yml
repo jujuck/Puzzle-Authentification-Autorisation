@@ -1,0 +1,60 @@
+x-baseService: &baseService
+  restart: always
+  healthcheck:
+    interval: 1s
+    timeout: 2s
+    retries: 10
+
+services:
+  db:
+    <<: *baseService
+    image: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}"]
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    container_name: adminer
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    <<: *baseService
+    build:
+      context: ./api
+    volumes:
+      - ./api/src:/app/src
+    ports:
+      - 5500:5500
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - SERVER_PORT=${SERVER_PORT}
+      - AUTH_SECRET_KEY=${AUTH_SECRET_KEY}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  client:
+    <<: *baseService
+    build:
+      context: ./client
+    ports:
+      - 5173:5173
+    environment:
+      - VITE_APOLLO_SERVER=${VITE_APOLLO_SERVER}
+    volumes:
+      - ./client/src:/app/src
+
+    # Some code here
