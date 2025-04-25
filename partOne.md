@@ -1,5 +1,7 @@
 # Partie sur la création d'un compte
 
+[](./assets/User_creation.png)
+
 ## Pièce n°1
 
 ```typescript
