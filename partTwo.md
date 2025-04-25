@@ -93,7 +93,7 @@ return (
   <AuthContext.Provider
     value={{
       user,
-      setUser,
+      handleUser,
     }}
   >
     {children}
