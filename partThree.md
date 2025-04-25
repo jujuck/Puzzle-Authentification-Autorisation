@@ -1,6 +1,6 @@
 # Partie de mise en place de l'autorisation
 
-[](./assets/User_Authorization.png)
+![authorisation](./assets/User_Authorization.png)
 
 ## Pièce n°1
 

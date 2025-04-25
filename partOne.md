@@ -1,6 +1,6 @@
 # Partie sur la création d'un compte
 
-[](./assets/User_creation.png)
+![creation](./assets/User_creation.png)
 
 ## Pièce n°1
 

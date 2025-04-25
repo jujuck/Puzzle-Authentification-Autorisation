@@ -1,6 +1,6 @@
 # Partie de mise en place de l'authentification
 
-[](./assets/User_Authentification.png)
+![authentification](./assets/User_Authentification.png)
 
 ## Pièce n°1
 
